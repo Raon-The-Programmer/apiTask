@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Public APIs Showcase</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .jumbotron {
+      background-color: #007bff;
+      color: #fff;
+      padding: 100px 0;
+      margin-bottom: 0;
+    }
+
+    .jumbotron h1 {
+      font-size: 3.5rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .section-header {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
+
+    .section-content {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .api-data {
+      margin-bottom: 20px;
+    }
+
+    .api-data img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">Public APIs Showcase</a>
+    </div>
+  </nav>
+
+  <!-- Jumbotron -->
+  <div class="jumbotron">
+    <div class="container text-center">
+      <h1>Welcome to the Public APIs Showcase</h1>
+      <p class="lead">Explore a variety of public APIs and see what you can do with them!</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Chuck Norris Jokes -->
+    <div class="section-content">
+      <h2 class="section-header">Chuck Norris Jokes</h2>
+      <div id="chuckNorrisJokes" class="api-data text-center"></div>
+    </div>
+
+    <!-- Random Dog Images -->
+    <div class="section-content">
+      <h2 class="section-header">Random Dog Images</h2>
+      <div id="randomDogImages" class="api-data text-center"></div>
+    </div>
+
+    <!-- Advice Slip -->
+    <div class="section-content">
+      <h2 class="section-header">Advice Slip</h2>
+      <div id="adviceSlip" class="api-data"></div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and other scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Fetch data from Chuck Norris Jokes API
+    fetch('https://api.chucknorris.io/jokes/random')
+      .then(response => response.json())
+      .then(data => {
+        const chuckNorrisJokes = document.getElementById('chuckNorrisJokes');
+        chuckNorrisJokes.innerHTML = `
+          <p>${data.value}</p>
+          <p class="text-muted">Source: Chuck Norris API</p>
+        `;
+      })
+      .catch(error => console.error('Error fetching Chuck Norris Joke:', error));
+
+    // Fetch data from Random Dog Images API
+    fetch('https://dog.ceo/api/breeds/image/random')
+      .then(response => response.json())
+      .then(data => {
+        const randomDogImages = document.getElementById('randomDogImages');
+        randomDogImages.innerHTML = `
+          <img src="${data.message}" alt="Random Dog Image">
+          <p class="text-muted">Source: Random Dog Images API</p>
+        `;
+      })
+      .catch(error => console.error('Error fetching Random Dog Image:', error));
+
+    // Fetch data from Advice Slip API
+    fetch('https://api.adviceslip.com/advice')
+      .then(response => response.json())
+      .then(data => {
+        const adviceSlip = document.getElementById('adviceSlip');
+        adviceSlip.innerHTML = `
+          <p>${data.slip.advice}</p>
+          <p class="text-muted">Source: Advice Slip API</p>
+        `;
+      })
+      .catch(error => console.error('Error fetching Advice Slip:', error));
+  </script>
+</body>
+</html>
